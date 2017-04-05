@@ -1,8 +1,8 @@
 package fr.ucbl.disp.vfos.controller.actuator.factory;
 
 import fr.ucbl.disp.vfos.controller.actuator.AActuator;
+import fr.ucbl.disp.vfos.controller.actuator.LedActuator;
 import fr.ucbl.disp.vfos.controller.actuator.actuatorType;
-import fr.ucbl.disp.vfos.controller.actuator.ledActuator;
 import fr.ucbl.disp.vfos.controller.data.factory.DataFactory;
 import fr.ucbl.disp.vfos.util.configurator.ActuatorConfiguration;
 
@@ -27,7 +27,7 @@ public class actuatorFactory implements actuatorCreator {
 		actuatorType type= actuatorType.valueOf(actuatorConfig.getType());
 		
 		if(type == actuatorType.LED)
-		return new ledActuator(actuatorConfig);
+		return new LedActuator(actuatorConfig);
 		
 		return null;
 	}
