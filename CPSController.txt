@@ -1,0 +1,51 @@
+{
+  "CPSControllerList": [
+    {
+      "ID": "1",
+      "SensorsList": [
+        
+          {
+            "sensorId": "1",
+            "sensorName": "US1",
+            "sensorType": "ULTRASON",
+           
+              "resultPin": "1",
+              "triggerPin": "0",
+           
+            "Frequency": "10",
+            "Sigma": "0.001"
+          },
+          {
+            "sensorId": "2",
+            "sensorName": "US2",
+            "sensorType": "ULTRASON",
+            
+              "resultPin": "26",
+              "triggerPin": "22",
+            
+            "Frequency": "10",
+            "Sigma": "0.001"
+          }
+        
+      ],
+      "ActuatorList": [
+        
+          {
+            "actuatorId": "1",
+            "actuatorName": "blueLed",
+            "actuatorType": "LED",
+           
+              "resultPin": "25"
+          },
+          {
+            "actuatorId": "2",
+            "actuatorName": "yellowLed",
+            "actuatorType": "LED",
+           
+              "resultPin": "3"
+          }
+        
+      ]
+    }
+  ]
+}

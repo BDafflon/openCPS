@@ -1,0 +1,35 @@
+{
+  "CPSControllerList": {
+    "CPSController": {
+      "ID": "1",
+      "SensorsList": {
+        "sensor": [
+          {
+            "sensorId": "1",
+            "sensorName": "US1",
+            "sensorType": "ULTRASON",
+            "GPIO": {
+              "resultPin": "1",
+              "triggerPin": "0"
+            },
+            "Frequency": "10",
+            "Sigma": "0.001"
+          },
+          {
+            "sensorId": "2",
+            "sensorName": "US2",
+            "sensorType": "ULTRASON",
+            "GPIO": {
+              "resultPin": "26",
+              "triggerPin": "22"
+            },
+            "Frequency": "10",
+            "Sigma": "0.001"
+          }
+        ]
+      },
+      "ActuatorList": "
+	"
+    }
+  }
+}
