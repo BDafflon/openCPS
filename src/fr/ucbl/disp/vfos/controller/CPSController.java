@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import org.json.JSONObject;
 
 import fr.ucbl.disp.vfos.controller.actuator.AActuator;
+import fr.ucbl.disp.vfos.controller.actuator.LedActuator;
 import fr.ucbl.disp.vfos.controller.actuator.ledActuator;
 import fr.ucbl.disp.vfos.controller.actuator.factory.actuatorFactory;
 import fr.ucbl.disp.vfos.controller.data.AData;
@@ -34,6 +35,7 @@ public class CPSController extends AController implements CPSLocalService{
 	private ArrayList<AActuator> actuatorList= new ArrayList<AActuator>();
 	private ArrayDeque<ADecision> decisionList = new ArrayDeque<ADecision>();
 
+
 	public CPSController(CPSConfiguration conf) {
 		ArrayList<SensorConfiguration> sensorConfList= conf.getSensorList();
 		ArrayList<ActuatorConfiguration> actuatorConfList= conf.getActuatorList();
@@ -48,7 +50,7 @@ public class CPSController extends AController implements CPSLocalService{
 			actuatorList.add(actuatorFactory.getInstance().actuatorCreator( actuatorConfList.get(i)));
 		}
 	}
-	
+
 	public void start(){
 		for (int i=0; i<filterList.size(); i++){ 
 			ThreadUtil.execute( filterList.get(i));
@@ -67,35 +69,41 @@ public class CPSController extends AController implements CPSLocalService{
 	public void doDecision(AData d) {
 		// TODO Auto-generated method stub
 		LedDecision l = new LedDecision(this,System.nanoTime(), ((UltraSonicSensorByGPIO) d.getEmitter()).getName());
-		this.decisionList.add(l);
+
 
 		if(l.getEmitter().getName().equals( "US1")){
-			l.setColor("yellow");
-		}
-		else
-		{
-			l.setColor("blue");
+			l.enable(true);
+			l.setDest(actuatorList.get(1));
+			this.decisionList.add(l);
+			doApplication(l);
 		}
 
-		doApplication(l);
+		if(l.getEmitter().getName().equals( "US2"))
+		{
+			l.enable(true);
+			l.setDest(actuatorList.get(0));
+			this.decisionList.add(l);
+			doApplication(l);
+		}
+
 	}
 
 	public void doApplication(ADecision a) {
 		// TODO Auto-generated method stub
 		try {
 			if(a instanceof LedDecision){
-				ledActuator yellowled= (ledActuator) actuatorList.get(1);
-				ledActuator blueled= (ledActuator) actuatorList.get(0);
+				LedDecision d = (LedDecision)a;
 
-				if (((LedDecision) a).getColor()== "yellow")
-					yellowled.turnOnLed();
-				else if (((LedDecision) a).getColor()== "blue")
-					blueled.turnOnLed();
+				if(d.getDest() instanceof LedActuator){
+					LedActuator l = (LedActuator) d.getDest();
 
+					if(d.isEnable()){
+						l.turnOnLed();
+						Thread.sleep(100);
+						l.turnOffLed();
+					}
+				}
 
-				Thread.sleep(100);
-				blueled.turnOffLed();
-				yellowled.turnOffLed();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();

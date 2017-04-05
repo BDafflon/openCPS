@@ -8,14 +8,14 @@ import com.pi4j.io.gpio.RaspiPin;
 import fr.ucbl.disp.vfos.util.configurator.ActuatorConfiguration;
 
 
-public class ledActuator extends warningActuator {
+public class LedActuator extends warningActuator {
 	
 	
 	final GpioController gpio = GpioFactory.getInstance();
 	private GpioPinDigitalOutput pin;
 	public String name;
 
-	public ledActuator(ActuatorConfiguration actuatorConfig) {
+	public LedActuator(ActuatorConfiguration actuatorConfig) {
 
 		super();
 		int res=actuatorConfig.getGpioResult();

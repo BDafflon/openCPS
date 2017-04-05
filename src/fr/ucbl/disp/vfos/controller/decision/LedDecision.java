@@ -4,7 +4,7 @@ import fr.ucbl.disp.vfos.controller.AController;
 
 public class LedDecision extends ADecision {
 	protected String led;
-	protected String color;
+	protected Boolean enable;
 	
 	public LedDecision(AController cpsController, long nanoTime, String name) {
 		this.led = name;
@@ -20,12 +20,12 @@ public class LedDecision extends ADecision {
 		this.led = led;
 	}
 
-	public String getColor() {
-		return color;
+	public Boolean isEnable() {
+		return enable;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void enable(Boolean b) {
+		this.enable = b;
 	}
 
 	
