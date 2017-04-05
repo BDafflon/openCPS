@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import fr.ucbl.disp.vfos.controller.actuator.AActuator;
 import fr.ucbl.disp.vfos.controller.actuator.LedActuator;
-import fr.ucbl.disp.vfos.controller.actuator.ledActuator;
 import fr.ucbl.disp.vfos.controller.actuator.factory.actuatorFactory;
 import fr.ucbl.disp.vfos.controller.data.AData;
 import fr.ucbl.disp.vfos.controller.decision.ADecision;
