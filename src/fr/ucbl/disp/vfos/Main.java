@@ -13,21 +13,27 @@ import fr.ucbl.disp.vfos.util.json.JSonLoader;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException{	
+	public static void main(String[] args) throws IOException{
 		try {
 
-			JSonLoader parser;
-			parser = new JSonLoader("CPSController.txt");
-			CPSConfiguration conf = parser.loadByIndex(0);	
-			CPSController myController = new CPSController(conf);
-			Endpoint.publish("http://localhost:9999/ws/CPSControllerStatut", myController);
+			if(args.length !=1){
+				System.err.println("Argument invalide ");
+				System.err.println("Utilisation : java -jar openCPS ./configuration/file");
 
-			myController.start();
-			
+			}
+			else{
+				JSonLoader parser;
+				parser = new JSonLoader(args[0]);
+				CPSConfiguration conf = parser.loadByIndex(0);
+				CPSController myController = new CPSController(conf);
+				Endpoint.publish("http://localhost:9999/ws/CPSControllerStatut", myController);
+
+				myController.start();
+			}
 		}  catch (JSONException e) {
 			e.printStackTrace();
 		}
 
-	
+
 	}}
 
