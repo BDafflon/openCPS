@@ -16,7 +16,7 @@ import fr.ucbl.disp.vfos.controller.decision.LedDecision;
 import fr.ucbl.disp.vfos.controller.physic.APhysicFilter;
 import fr.ucbl.disp.vfos.controller.physic.factory.FilterFactory;
 import fr.ucbl.disp.vfos.controller.sensor.ASensor;
-import fr.ucbl.disp.vfos.controller.sensor.UltraSonicSensorByGPIO;
+import fr.ucbl.disp.vfos.controller.sensor.distance.UltraSonicSensorByGPIO;
 import fr.ucbl.disp.vfos.controller.sensor.factory.SensorFactory;
 import fr.ucbl.disp.vfos.controller.service.CPSLocalService;
 import fr.ucbl.disp.vfos.util.ThreadUtil;
@@ -51,7 +51,7 @@ public class CPSController extends AController implements CPSLocalService{
 	}
 
 	public void start(){
-		for (int i=0; i<filterList.size(); i++){ 
+		for (int i=0; i<filterList.size(); i++){
 			ThreadUtil.execute( filterList.get(i));
 			ThreadUtil.execute(sensorList.get(i));
 		}

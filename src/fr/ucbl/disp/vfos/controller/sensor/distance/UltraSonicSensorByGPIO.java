@@ -1,4 +1,4 @@
-package fr.ucbl.disp.vfos.controller.sensor;
+package fr.ucbl.disp.vfos.controller.sensor.distance;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -37,27 +37,27 @@ public class UltraSonicSensorByGPIO extends DistanceSensor {
 	public UltraSonicSensorByGPIO(SensorConfiguration sensorConfig) {
 
 		super();
-		
+
 		int trig= sensorConfig.getGpioTrigger();
-		this.triggerGPIO = gpio.provisionDigitalOutputPin(RaspiPin.getPinByAddress(trig), 
+		this.triggerGPIO = gpio.provisionDigitalOutputPin(RaspiPin.getPinByAddress(trig),
 				"Sensor Trigger", PinState.LOW);
 		int res=sensorConfig.getGpioResult();
-		this.resultGPIO = gpio.provisionDigitalInputPin(RaspiPin.getPinByAddress(res), 
+		this.resultGPIO = gpio.provisionDigitalInputPin(RaspiPin.getPinByAddress(res),
 				"Sensor Result", PinPullResistance.PULL_DOWN);
 
 		this.name=sensorConfig.getName();
 	}
 
-	
-	
+
+
 
 	public UltraSonicData perceive(GpioPinDigitalOutput out,GpioPinDigitalInput in) throws InterruptedException {
 
 		long start = 0;
-		
+
 		UltraSonicData USdata = new UltraSonicData(-1,this);
 
-        
+
 		out.high();
 		Thread.sleep(15);
 		out.low();
@@ -104,6 +104,6 @@ public class UltraSonicSensorByGPIO extends DistanceSensor {
 		return null;
 	}
 
-	
+
 
 }
