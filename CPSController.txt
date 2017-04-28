@@ -13,7 +13,9 @@
               "triggerPin": "0",
            
             "Frequency": "10",
-            "Sigma": "0.001"
+            "Sigma": "0.001",
+            "Distane": "0",
+            "RequiredDistane": "17"
           },
           {
             "sensorId": "2",
@@ -24,22 +26,65 @@
               "triggerPin": "22",
             
             "Frequency": "10",
-            "Sigma": "0.001"
+            "Sigma": "0.001",
+            "Distane": "0",
+            "RequiredDistane": "22"
+          },
+              {
+            "sensorId": "3",
+            "sensorName": "US3",
+            "sensorType": "ULTRASON",
+           
+              "resultPin": "29",
+              "triggerPin": "6",
+           
+            "Frequency": "10",
+            "Sigma": "0.001",
+            "Distane": "0",
+            "RequiredDistane": "18"
+          },
+              {
+            "sensorId": "4",
+            "sensorName": "US4",
+            "sensorType": "ULTRASON",
+           
+              "resultPin": "4",
+              "triggerPin": "5",
+           
+            "Frequency": "10",
+            "Sigma": "0.001",
+            "Distane": "0",
+            "RequiredDistane": "13"
           }
+      
         
       ],
       "ActuatorList": [
         
           {
             "actuatorId": "1",
-            "actuatorName": "blueLed",
+            "actuatorName": "redLed",
             "actuatorType": "LED",
            
               "resultPin": "25"
           },
           {
             "actuatorId": "2",
+            "actuatorName": "greenLed",
+            "actuatorType": "LED",
+           
+              "resultPin": "24"
+          },
+          {
+            "actuatorId": "3",
             "actuatorName": "yellowLed",
+            "actuatorType": "LED",
+           
+              "resultPin": "21"
+          },
+          {
+            "actuatorId": "4",
+            "actuatorName": "blueLed",
             "actuatorType": "LED",
            
               "resultPin": "3"

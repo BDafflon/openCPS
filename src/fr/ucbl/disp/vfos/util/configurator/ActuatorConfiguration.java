@@ -37,4 +37,7 @@ public class ActuatorConfiguration {
 		this.gpioTrigger = gpioTrigger;
 	}
 
+	public String toString() {
+		return "id:"+id+" name:"+name+" type:"+type+" gpioResult:"+gpioResult+" gpioTrigger:"+gpioTrigger;
+	}
 }

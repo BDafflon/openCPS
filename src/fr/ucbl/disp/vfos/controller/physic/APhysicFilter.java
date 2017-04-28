@@ -7,17 +7,17 @@ public abstract class APhysicFilter implements Runnable, SensorRawDataListener{
 
 	EventListenerList listeners = new EventListenerList();
 
-	public SensorProcessedDataListener[] getSensorListener() {
+	public SensorProcessedDataListener[] getProcessedSensorListener() {
 		return this.listeners.getListeners(SensorProcessedDataListener.class);
 	}
 
 
-	public void addPerceptionReceiverListener(SensorProcessedDataListener listener) {
+	public void addPerceptionReceiverProcessedListener(SensorProcessedDataListener listener) {
 		this.listeners.add(SensorProcessedDataListener.class, listener);
 	}
 
 
-	public void removePerceptionReceiverListener(SensorProcessedDataListener listener) {
+	public void removePerceptionReceiverProcessedListener(SensorProcessedDataListener listener) {
 		this.listeners.remove(SensorProcessedDataListener.class, listener);
 	}
 	

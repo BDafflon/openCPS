@@ -22,18 +22,12 @@ public class UltraSonicSensorByGPIO extends DistanceSensor {
 	final GpioController gpio = GpioFactory.getInstance();
 	private GpioPinDigitalOutput triggerGPIO;
 	private GpioPinDigitalInput resultGPIO;
-	public String name;
-	public  double count=0;
 
-	public double getCount(){
-		return this.count;
-	}
-	public String getName(){
-		return this.name;
-	}
-	public void incrementCount(){
-		this.count+=1;
-	}
+	private double distance;
+	private double desiredDistance;
+
+
+
 	public UltraSonicSensorByGPIO(SensorConfiguration sensorConfig) {
 
 		super();
@@ -45,7 +39,9 @@ public class UltraSonicSensorByGPIO extends DistanceSensor {
 		this.resultGPIO = gpio.provisionDigitalInputPin(RaspiPin.getPinByAddress(res),
 				"Sensor Result", PinPullResistance.PULL_DOWN);
 
-		this.name=sensorConfig.getName();
+		this.setName(sensorConfig.getName());
+		this.distance=sensorConfig.getDistance();
+		this.desiredDistance=sensorConfig.getDesiredDistance();
 	}
 
 
@@ -59,19 +55,29 @@ public class UltraSonicSensorByGPIO extends DistanceSensor {
 
 
 		out.high();
-		Thread.sleep(15);
+		Thread.sleep(10);
 		out.low();
 
+		int cpt=0;
 		while (in.isLow()) {
+
 			start = System.nanoTime();
+			cpt++;
+			if(cpt>1000){
+				System.err.println(this.getName()+"lock");
+				return null;
+			}
+
 		}
 
 		while (in.isHigh()) {
 
-
 		}
-		USdata.setDistance(( System.nanoTime()- start) / 68000);
-		//System.out.println(String.valueOf(USdata.getDistance())+ this.name );
+
+		USdata.setDistance(( System.nanoTime()- start) / 68000.0);
+
+		this.distance=(System.nanoTime()- start) / 68000;
+		//System.out.println(String.valueOf(USdata.getDistance())+ "distance="+this.distance +"desired distance= "+ this.desiredDistance);
 		return USdata;
 
 	}
@@ -81,27 +87,61 @@ public class UltraSonicSensorByGPIO extends DistanceSensor {
 			while (!Thread.currentThread().isInterrupted()){
 
 				UltraSonicData data1 = perceive(this.triggerGPIO,this.resultGPIO);
-
-				this.fireData(data1);
-
+				
+				if(data1!=null)
+					this.fireData(data1);
+				Thread.sleep(50) ;
 			}
-			Thread.sleep(50) ;
 
 		}  catch (InterruptedException e) {
 
 			Thread.currentThread();
 			Thread.interrupted() ;
-		}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} 
 	}
+
 
 	public  void cancel() {
 
 
 		Thread.currentThread().interrupt() ;
+
 	}
+
 	public AData perceive() throws InterruptedException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+
+	public double getDistance() {
+		return distance;
+	}
+
+
+
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
+
+
+
+	public double getDesiredDistance() {
+		return desiredDistance;
+	}
+
+
+
+
+	public void setDesiredDistance(double desiredDistance) {
+		this.desiredDistance = desiredDistance;
 	}
 
 

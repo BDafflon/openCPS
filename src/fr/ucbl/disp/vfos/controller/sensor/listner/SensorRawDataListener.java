@@ -13,6 +13,5 @@ import fr.ucbl.disp.vfos.controller.sensor.ASensor;
  */
 public interface SensorRawDataListener extends EventListener{
 	 
-	void receiveSensorRawData(AData Data, ASensor sensor);
+	void receiveSensorRawData( AData sensor);
 }
-

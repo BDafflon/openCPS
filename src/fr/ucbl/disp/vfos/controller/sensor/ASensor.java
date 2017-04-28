@@ -11,7 +11,7 @@ public abstract class ASensor implements Perceive, Runnable {
 	
 	private EStatut statut;
 	EventListenerList listeners = new EventListenerList();
-
+	protected String name;
 
 	public SensorStatutListener[] getStatutListener() {
 		return this.listeners.getListeners(SensorStatutListener.class);
@@ -27,17 +27,17 @@ public abstract class ASensor implements Perceive, Runnable {
 		this.listeners.remove(SensorStatutListener.class, listener);
 	}
 	
-	public SensorRawDataListener[] getSensorListener() {
+	public SensorRawDataListener[] getRawSensorListener() {
 		return this.listeners.getListeners(SensorRawDataListener.class);
 	}
 
 
-	public void addPerceptionReceiverListener(SensorRawDataListener listener) {
+	public void addPerceptionRawReceiverListener(SensorRawDataListener listener) {
 		this.listeners.add(SensorRawDataListener.class, listener);
 	}
 
 
-	public void removePerceptionReceiverListener(SensorRawDataListener listener) {
+	public void removePerceptionRawReceiverListener(SensorRawDataListener listener) {
 		this.listeners.remove(SensorRawDataListener.class, listener);
 	}
 
@@ -47,16 +47,26 @@ public abstract class ASensor implements Perceive, Runnable {
 	}
 
 
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	public void setStatut(EStatut statut) {
 		this.statut = statut;
 	}
 	
 	protected void fireData(AData xEvent) 
 	{
-		for(SensorRawDataListener listener : getSensorListener()) {
+		for(SensorRawDataListener listener : getRawSensorListener()) {
 			if(listener instanceof SensorRawDataListener){
 				
-				((SensorRawDataListener) listener).receiveSensorRawData(xEvent,this);
+				((SensorRawDataListener) listener).receiveSensorRawData(xEvent);
 			}
 		}
 	}

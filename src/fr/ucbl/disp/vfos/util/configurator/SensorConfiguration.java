@@ -10,7 +10,20 @@ public class SensorConfiguration {
 	private int gpioTrigger;
 	private double frequency;
 	private double sigma;
-	
+	private double distance;
+	private double desiredDistance;
+	public double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+	public double getDesiredDistance() {
+		return desiredDistance;
+	}
+	public void setDesiredDistance(double desiredDistance) {
+		this.desiredDistance = desiredDistance;
+	}
 	public void setID(String id) {
 		// TODO Auto-generated method stub
 		this.id = id;
@@ -69,5 +82,6 @@ public class SensorConfiguration {
 		// TODO Auto-generated method stub
 		this.sigma = sigma;
 	}
+
 
 }

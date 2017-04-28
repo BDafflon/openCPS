@@ -1,10 +1,12 @@
 package fr.ucbl.disp.vfos.controller.data;
 
+import fr.ucbl.disp.vfos.controller.sensor.ASensor;
+
 
 public abstract class AData {
-	protected Object emitter;
+	protected ASensor emitter;
 
-	public Object getEmitter() {
+	public ASensor getEmitter() {
 
 		return this.emitter;
 	}

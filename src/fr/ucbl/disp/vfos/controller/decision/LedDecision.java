@@ -28,5 +28,8 @@ public class LedDecision extends ADecision {
 		this.enable = b;
 	}
 
+	public String toString() {
+		return "LedDecision :time :"+this.time+" led:"+this.led+" stats:"+this.isEnable();
+	}
 	
 }

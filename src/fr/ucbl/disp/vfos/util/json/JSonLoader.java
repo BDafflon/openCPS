@@ -46,6 +46,8 @@ public class JSonLoader {
 	
 				sensor1.setFrequency(Double.parseDouble(sensorList.getJSONObject(j).getString("Frequency")));
 				sensor1.setSigma(Double.parseDouble(sensorList.getJSONObject(j).getString("Sigma")));
+				sensor1.setDistance(Double.parseDouble(sensorList.getJSONObject(j).getString("Distane")));
+				sensor1.setDesiredDistance(Double.parseDouble(sensorList.getJSONObject(j).getString("RequiredDistane")));
 
 				cps1.addSensor(sensor1);
 

@@ -9,23 +9,23 @@ import fr.ucbl.disp.vfos.util.configurator.ActuatorConfiguration;
 
 
 public class LedActuator extends warningActuator {
-	
-	
+
+
 	final GpioController gpio = GpioFactory.getInstance();
 	private GpioPinDigitalOutput pin;
-	public String name;
+
 
 	public LedActuator(ActuatorConfiguration actuatorConfig) {
 
 		super();
 		int res=actuatorConfig.getGpioResult();
 		this.name=actuatorConfig.getName();
-	this.pin = gpio.provisionDigitalOutputPin(RaspiPin.getPinByAddress(res),this.name, PinState.LOW);
-	
-		System.out.println("Hello I'm a led actuator my name is "+ name);
+		this.pin = gpio.provisionDigitalOutputPin(RaspiPin.getPinByAddress(res),this.name, PinState.LOW);
+
+		 
 	}
-	
-	
+
+
 	public void turnOnLed()
 	{ 
 		pin.high();

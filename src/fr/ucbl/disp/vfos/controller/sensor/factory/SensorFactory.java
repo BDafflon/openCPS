@@ -27,7 +27,7 @@ public class SensorFactory implements SensorCreator {
 		SensorType type= SensorType.valueOf(sensorConfig.getType());
 
 		if(type == SensorType.ULTRASON)
-		return new UltraSonicSensorByGPIO(sensorConfig);
+			return new UltraSonicSensorByGPIO(sensorConfig);
 
 		return null;
 	}
