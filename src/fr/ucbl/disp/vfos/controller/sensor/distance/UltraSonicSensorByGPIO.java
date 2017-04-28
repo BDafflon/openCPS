@@ -60,7 +60,6 @@ public class UltraSonicSensorByGPIO extends DistanceSensor {
 
 		int cpt=0;
 		while (in.isLow()) {
-
 			start = System.nanoTime();
 			cpt++;
 			if(cpt>1000){

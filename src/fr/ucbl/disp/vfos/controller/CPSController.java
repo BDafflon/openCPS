@@ -23,6 +23,7 @@ import fr.ucbl.disp.vfos.controller.service.CPSLocalService;
 import fr.ucbl.disp.vfos.util.ThreadUtil;
 import fr.ucbl.disp.vfos.util.configurator.ActuatorConfiguration;
 import fr.ucbl.disp.vfos.util.configurator.CPSConfiguration;
+import fr.ucbl.disp.vfos.util.configurator.Configuration;
 import fr.ucbl.disp.vfos.util.configurator.SensorConfiguration;
 
 @WebService(endpointInterface = "fr.ucbl.disp.vfos.controller.service.CPSLocalService")
@@ -37,6 +38,10 @@ public class CPSController extends AController implements CPSLocalService{
 	private boolean verbose=true;
 
 	public CPSController(CPSConfiguration conf) {
+		
+		if(Configuration.VERBOSE)
+			System.out.println("START OpenCPS Platform");
+		
 		ArrayList<SensorConfiguration> sensorConfList= conf.getSensorList();
 		ArrayList<ActuatorConfiguration> actuatorConfList= conf.getActuatorList();
 
@@ -66,7 +71,7 @@ public class CPSController extends AController implements CPSLocalService{
 
 		if( data instanceof DistanceData1D){
 			DistanceData1D d= (DistanceData1D)data;
-			if(!verbose)
+			if(verbose)
 				System.out.println("receiveSensorProcessedData"+d.toString());
 			if (data.getEmitter() instanceof UltraSonicSensorByGPIO)
 			{
@@ -86,7 +91,7 @@ public class CPSController extends AController implements CPSLocalService{
 			if( d instanceof DistanceData1D){
 
 				DistanceData1D dist= (DistanceData1D)d;
-				if(!verbose)
+				if(verbose)
 					System.out.println("doDecision :"+dist.toString());
 
 				if(d.getEmitter() instanceof UltraSonicSensorByGPIO){
@@ -146,7 +151,7 @@ public class CPSController extends AController implements CPSLocalService{
 						}
 						doApplication(l);
 					}
-					if(Math.abs(dist.getDataDistance()-emitter.getDesiredDistance())>2)
+					if(verbose)
 						System.err.println("doDecision :"+dist.toString()+ " target "+emitter.getDesiredDistance()+ "sigma "+Math.abs(dist.getDataDistance()-emitter.getDesiredDistance()));
 				}
 			}

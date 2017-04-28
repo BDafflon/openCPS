@@ -1,4 +1,7 @@
 {
+	"verbose" ="1",
+	"debug" ="1",
+	"info" ="1",
   "CPSControllerList": [
     {
       "ID": "1",
