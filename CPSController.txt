@@ -1,7 +1,8 @@
 {
-	"verbose" ="1",
-	"debug" ="1",
-	"info" ="1",
+	"Configuration":{
+	"verbose" :"true",
+	"debug" :"false",
+	"info" :"true"},
   "CPSControllerList": [
     {
       "ID": "1",

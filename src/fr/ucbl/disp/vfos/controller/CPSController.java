@@ -39,23 +39,24 @@ public class CPSController extends AController implements CPSLocalService{
 
 	public CPSController(CPSConfiguration conf) {
 		
-		if(Configuration.VERBOSE)
+		if(Configuration.VERBOSE && Configuration.INFO)
 			System.out.println("START OpenCPS Platform");
 		
 		ArrayList<SensorConfiguration> sensorConfList= conf.getSensorList();
 		ArrayList<ActuatorConfiguration> actuatorConfList= conf.getActuatorList();
 
 		for (int i=0; i<sensorConfList.size(); i++){
+			if(Configuration.VERBOSE && Configuration.INFO)
+				System.out.println("Sensor creation:"+sensorConfList.get(i).toString());
 			filterList.add(FilterFactory.getInstance().filterCreator( sensorConfList.get(i)));
 			sensorList.add(SensorFactory.getInstance().sensorCreator( sensorConfList.get(i)));
-
 			sensorList.get(i).addPerceptionRawReceiverListener(filterList.get(i));
 			filterList.get(i).addPerceptionReceiverProcessedListener(this);
 		}
 
 		for (int i=0; i<actuatorConfList.size(); i++){
-			if(verbose)
-				System.out.println(actuatorConfList.get(i).toString());
+			if(Configuration.VERBOSE && Configuration.INFO)
+				System.out.println("LED creation:"+actuatorConfList.get(i).toString());
 			actuatorList.add(actuatorFactory.getInstance().actuatorCreator( actuatorConfList.get(i)));
 		}
 	}
@@ -71,11 +72,11 @@ public class CPSController extends AController implements CPSLocalService{
 
 		if( data instanceof DistanceData1D){
 			DistanceData1D d= (DistanceData1D)data;
-			if(verbose)
+			if(Configuration.VERBOSE && Configuration.INFO)
 				System.out.println("receiveSensorProcessedData"+d.toString());
 			if (data.getEmitter() instanceof UltraSonicSensorByGPIO)
 			{
-				UltraSonicSensorByGPIO us =(UltraSonicSensorByGPIO)data.getEmitter();
+				
 
 				doDecision(d);
 			}
@@ -91,7 +92,7 @@ public class CPSController extends AController implements CPSLocalService{
 			if( d instanceof DistanceData1D){
 
 				DistanceData1D dist= (DistanceData1D)d;
-				if(verbose)
+				if(Configuration.VERBOSE && Configuration.INFO)
 					System.out.println("doDecision :"+dist.toString());
 
 				if(d.getEmitter() instanceof UltraSonicSensorByGPIO){
@@ -151,7 +152,7 @@ public class CPSController extends AController implements CPSLocalService{
 						}
 						doApplication(l);
 					}
-					if(verbose)
+					if(Configuration.VERBOSE && Configuration.INFO)
 						System.err.println("doDecision :"+dist.toString()+ " target "+emitter.getDesiredDistance()+ "sigma "+Math.abs(dist.getDataDistance()-emitter.getDesiredDistance()));
 				}
 			}
@@ -172,7 +173,7 @@ public class CPSController extends AController implements CPSLocalService{
 			if(a instanceof LedDecision){
 				LedDecision d = (LedDecision)a;
 
-				if(!verbose)
+				if(Configuration.VERBOSE && Configuration.INFO)
 					System.out.println(d.toString());
 
 				if(d.getDest() instanceof LedActuator){
@@ -202,7 +203,6 @@ public class CPSController extends AController implements CPSLocalService{
 		// TODO Auto-generated method stub
 		JSONObject jsonObject = new JSONObject(this);
 		String myJson  =jsonObject.toString();
-		System.out.println(myJson);
 		return myJson;
 	}
 	public String getLastDecision(String name) {

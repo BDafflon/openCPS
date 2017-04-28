@@ -9,6 +9,7 @@ import org.json.*;
 
 import fr.ucbl.disp.vfos.util.configurator.ActuatorConfiguration;
 import fr.ucbl.disp.vfos.util.configurator.CPSConfiguration;
+import fr.ucbl.disp.vfos.util.configurator.Configuration;
 import fr.ucbl.disp.vfos.util.configurator.EGPIO;
 import fr.ucbl.disp.vfos.util.configurator.SensorConfiguration;
 import fr.ucbl.disp.vfos.util.file.EIOFileType;
@@ -23,7 +24,12 @@ public class JSonLoader {
 
 		IOFile f = new IOFile(url, EIOFileType.READ);
 		data = new JSONObject(f.readFile());
-
+        JSONObject config=data.getJSONObject("Configuration");
+        Configuration.VERBOSE= Boolean.valueOf( config.getString("verbose"));
+        Configuration.DEBUG= Boolean.valueOf( config.getString("debug"));
+        Configuration.INFO= Boolean.valueOf( config.getString("info"));
+       
+    
 		JSONArray  cpsList = data.getJSONArray("CPSControllerList");
 
 		for (int i = 0; i < cpsList.length(); i++)
